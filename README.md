@@ -1,16 +1,40 @@
-# dietcode
+# Diet Code — Tear Open
 
-A small, static landing page for dietcode. It uses plain HTML and CSS, with no build step or dependencies.
+A static studio website with a photographic halftone bottle, an interactive cap, and a native, reversible torn-paper transition into OOTD.
 
 ## Run locally
 
-Open `index.html` in a browser, or serve this folder with any static file server.
+Requires Node20.19+ or22.12+ and Playwright Chromium (`npx playwright install chromium` if missing).
 
-## Publish with GitHub Pages
+```sh
+npm ci
+npm run dev
+```
 
-1. Push this repository to GitHub on the `main` branch.
-2. In the repository, open **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select `main` and `/(root)`, then save.
+## Verify
 
-GitHub Pages will publish the root `index.html`. The page and favicon use relative paths, so they work at a repository URL as well as a custom domain. See [GitHub Pages publishing source documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+```sh
+npm test
+npm run build
+npm run verify
+node scripts/verify-built.mjs
+node scripts/verify-preview.mjs
+```
+
+`verify` starts and closes its own Vite server and headless Chromium. It runs 122 acceptance checks across six viewports. It checks desktop/mobile, cap replay, pointer cancellation, native touch scrolling, equal forward/reverse paper poses, keyboard focus, reduced motion, no-JS flow, asset failure and visible team names. It saves screenshots, motion video and a JSON report to `screenshots/tear-open/`. The preview verifier adds 101 checks across five sizes for garment selection, variation, focus, saving, reload, reset and unavailable storage. Pure state helpers have 13 tests.
+
+## Content and assets
+
+OOTD is the only project, an iOS wardrobe app in development. Its garment imagery comes from the supplied WardrobeAI repository. No product interface or release claims are fabricated. The contact address is dietcode@sike.dev.
+
+The case study contains a working, explicitly labelled idea study using six example garments. Visitors can lock a starting piece, vary the combination, and keep one look in this browser. Only validated example garment IDs are stored under `dietcode.ootd-preview.v1`; reset removes only that key. If storage is unavailable, the look lasts for the current visit. This study is separate from the native app, whose source is unchanged.
+
+Asset sources and font licences are documented in `docs/assets/README.md`. The bottle's lettering is baked into the art and rotates with it. The body uses a matched open-mouth version of the master; the cap is clipped from the original, with the same registration. Production assets live in `public/assets/`; no user-home paths are used at runtime.
+
+The motion system uses separate layers: native scroll controls the outer scene, while hover, drag and manually activated cap animation control inner layers. Scroll-owned poses depend only on current normalized scroll position. Reduced-motion and no-JS visitors get normal document flow.
+
+## Design and review
+
+Approved direction and implementation plan: `docs/superpowers/`. Review evidence: `docs/reviews/tear-open/`. Previous work is preserved in stash `1daf5749d7bd63c0a519bda6074f60c6d9f78fc4` and has not been restored.
+
+Build output is `dist/` with relative asset paths, suitable for static hosting. Nothing is deployed by the build or verification commands.

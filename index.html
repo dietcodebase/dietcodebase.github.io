@@ -1,59 +1,514 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f1f1ef">
-  <meta name="description" content="dietcode is a three-person software and AI company building products.">
-  <title>dietcode — Software &amp; AI products</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header wrap">
-    <a class="wordmark wordmark-small" href="#top" aria-label="dietcode home">dietcode<span>.</span></a>
-    <nav aria-label="Main navigation">
-      <a href="#about">About</a>
-      <a href="#team">Team</a>
-    </nav>
-  </header>
-  <main id="main">
-    <section class="hero wrap" id="top" aria-labelledby="hero-title">
-      <p class="eyebrow"><span class="rule"></span> Independent software &amp; AI company</p>
-      <h1 class="wordmark hero-mark" id="hero-title">dietcode<span>.</span></h1>
-      <div class="hero-bottom">
-        <h2>Small team.<br>Thoughtful software.</h2>
-        <div class="hero-note">
-          <p>We’re a three-person company building software and AI products.</p>
-          <a class="text-link" href="#team">Meet the team <span aria-hidden="true">↓</span></a>
+<html lang="en" data-type="studio" data-radius="square" data-motion="cut-paper">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Diet Code — Independent creative engineering studio</title>
+    <meta
+      name="description"
+      content="Three people. Independently made software. Meet Diet Code and OOTD, our iOS wardrobe app in development."
+    />
+    <meta name="theme-color" content="#F4F1EA" />
+    <meta property="og:title" content="Diet Code — Ideas, uncapped." />
+    <meta
+      property="og:description"
+      content="An independent creative engineering studio. Meet our people and OOTD."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="./assets/fonts/archivo-black.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./assets/fonts/dm-sans.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <!-- Tear Open: cream/vermilion/emerald, Archivo Black + DM Sans; photographic halftone cutout; native reversible paper scene. -->
+    <a class="skip-link" href="#hero-title">Skip to content</a>
+    <main id="main">
+      <div class="tear-scene" data-tear-scene>
+        <div class="scene-stage">
+          <section
+            class="hero"
+            id="top"
+            aria-labelledby="hero-title"
+            data-hero-pane
+          >
+            <header class="site-header edge">
+              <a class="brand" href="#top" aria-label="Diet Code home"
+                >Diet Code<span class="brand-dot" aria-hidden="true"
+                  >✳</span
+                ></a
+              >
+              <button
+                class="menu-toggle"
+                aria-controls="main-nav"
+                aria-expanded="false"
+                hidden
+              >
+                Menu <span aria-hidden="true">＋</span>
+              </button>
+              <nav id="main-nav" aria-label="Main navigation">
+                <a href="#work" data-work-link>Work <span>01</span></a
+                ><a href="#studio">Studio</a
+                ><a href="#contact"
+                  >Contact <span aria-hidden="true">↗</span></a
+                >
+              </nav>
+              <span class="header-note">Independent by design.</span>
+            </header>
+            <h1 class="masthead edge" id="hero-title" tabindex="-1">
+              <span>DIET</span> <span>CODE</span>
+            </h1>
+            <div class="red-paper" aria-hidden="true"></div>
+            <div class="bottle-scroll" data-bottle-scroll>
+              <div class="bottle" data-bottle data-cap-state="closed">
+                <button
+                  class="bottle-hit"
+                  type="button"
+                  aria-label="Pop the Diet Code bottle cap"
+                  data-cap-trigger
+                  disabled
+                  tabindex="-1"
+                >
+                  <span class="bottle-position"
+                    ><span class="bottle-local" data-bottle-local
+                      ><span class="bottle-art" data-bottle-art>
+                        <img
+                          class="bottle-body"
+                          src="./assets/bottle/body.webp"
+                          width="1024"
+                          height="1536"
+                          alt="Green halftone glass bottle with a cream diet code label"
+                          fetchpriority="high"
+                          draggable="false"
+                          data-bottle-image
+                        />
+                        <img
+                          class="bottle-cap"
+                          src="./assets/bottle/master.webp"
+                          width="1024"
+                          height="1536"
+                          alt=""
+                          draggable="false"
+                          aria-hidden="true"
+                          data-cap
+                        />
+                        <span class="fizz" aria-hidden="true"
+                          ><i></i><i></i><i></i
+                        ></span> </span></span
+                  ></span>
+                </button>
+              </div>
+            </div>
+            <p class="bottle-fallback" hidden>Ideas, uncapped.</p>
+            <div class="hero-bottom edge">
+              <div class="studio-sticker">
+                <h2>Independent creative<br />engineering studio.</h2>
+                <p>We design and build digital products.</p>
+              </div>
+              <div class="hero-actions">
+                <button
+                  class="pop-control"
+                  type="button"
+                  data-cap-trigger
+                  hidden
+                >
+                  Pop the cap <span aria-hidden="true">↗</span></button
+                ><a class="button button-dark" href="#work" data-work-link
+                  >View OOTD <span aria-hidden="true">↗</span></a
+                >
+              </div>
+            </div>
+            <div class="hero-foot edge">
+              <span>OOTD / iOS WARDROBE APP</span
+              ><span
+                >Scroll to tear open <span aria-hidden="true">↓</span></span
+              >
+            </div>
+          </section>
+          <section
+            class="work-intro edge"
+            id="work"
+            aria-labelledby="work-title"
+            data-work-pane
+          >
+            <div class="section-meta">
+              <span>01 / CURRENTLY IN THE STUDIO</span
+              ><span>iOS · IN DEVELOPMENT</span>
+            </div>
+            <div class="work-heading">
+              <h2 id="work-title" tabindex="-1">
+                OOTD<span class="asterisk" aria-hidden="true">✳</span>
+              </h2>
+              <p>
+                Your wardrobe.<br />
+                More possibilities.
+              </p>
+            </div>
+            <div
+              class="wardrobe-plate"
+              aria-label="OOTD wardrobe: olive chore jacket, cream tee and straight jeans"
+            >
+              <figure class="garment jacket">
+                <img
+                  src="./assets/ootd/olive-chore-jacket.jpg"
+                  width="720"
+                  height="900"
+                  alt="Olive green chore jacket"
+                  loading="lazy"
+                />
+                <figcaption><span>01</span> THE EVERYDAY LAYER</figcaption>
+              </figure>
+              <figure class="garment tee">
+                <img
+                  src="./assets/ootd/cream-tee.jpg"
+                  width="720"
+                  height="900"
+                  alt="Cream cotton T-shirt"
+                  loading="lazy"
+                />
+                <figcaption><span>02</span> A GOOD BASE</figcaption>
+              </figure>
+              <figure class="garment jeans">
+                <img
+                  src="./assets/ootd/straight-jeans.jpg"
+                  width="720"
+                  height="900"
+                  alt="Blue straight-leg jeans"
+                  loading="lazy"
+                />
+                <figcaption><span>03</span> THE OLD FAVOURITE</figcaption>
+              </figure>
+              <span class="plate-stamp" aria-hidden="true"
+                >WEAR<br />WHAT<br />YOU OWN.</span
+              >
+            </div>
+            <div class="work-intro-foot">
+              <p>
+                An iOS wardrobe app for planning looks<br />from the clothes you
+                already own.
+              </p>
+              <a class="text-link" href="#ootd-details"
+                >Inside the project <span aria-hidden="true">↓</span></a
+              >
+            </div>
+          </section>
         </div>
       </div>
-      <span class="hero-index" aria-hidden="true">01 / 03</span>
-    </section>
-    <section class="about wrap section-rule" id="about" aria-labelledby="about-title">
-      <p class="section-label"><span class="rule"></span> What we do</p>
-      <div class="about-copy">
-        <h2 id="about-title">Built by us.</h2>
-        <p>dietcode is where we turn ideas into software and AI products.</p>
-      </div>
-    </section>
-    <section class="team wrap section-rule" id="team" aria-labelledby="team-title">
-      <div class="team-heading">
-        <p class="section-label"><span class="rule"></span> The people</p>
-        <h2 id="team-title">Three people.<br>One studio.</h2>
-      </div>
-      <ul class="team-list" aria-label="dietcode team members">
-        <li><span>01</span><strong>Gowrish</strong><em>aka <b>gorix</b></em><i aria-hidden="true">↗</i></li>
-        <li><span>02</span><strong>Jeswin</strong><em>aka <b>jes</b></em><i aria-hidden="true">↗</i></li>
-        <li><span>03</span><strong>Sabi</strong><em>aka <b>sero</b></em><i aria-hidden="true">↗</i></li>
-      </ul>
-    </section>
-  </main>
-  <footer class="site-footer wrap section-rule">
-    <a class="wordmark wordmark-small" href="#top">dietcode<span>.</span></a>
-    <p>Software &amp; AI products</p>
-    <span class="copyright">© dietcode</span>
-  </footer>
-</body>
+      <section
+        class="project-details edge"
+        id="ootd-details"
+        aria-labelledby="details-title"
+      >
+        <div class="section-meta">
+          <span>THE IDEA BEHIND OOTD</span><span>01 — 01</span>
+        </div>
+        <div class="project-notebook">
+          <div class="notebook-heading">
+            <h2 id="details-title">Made for what<br />you already own.</h2>
+            <p>
+              We’re building OOTD around three things: the pieces you own, the
+              look you put together, and the combinations worth keeping.
+            </p>
+            <div
+              class="project-tabs"
+              role="tablist"
+              aria-label="Explore OOTD"
+              aria-orientation="vertical"
+            >
+              <button
+                id="tab-wardrobe"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panel-wardrobe"
+                tabindex="0"
+              >
+                <span>01</span> Wardrobe
+                <span class="tab-mark" aria-hidden="true"></span></button
+              ><button
+                id="tab-today"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-today"
+                tabindex="-1"
+              >
+                <span>02</span> Today
+                <span class="tab-mark" aria-hidden="true"></span></button
+              ><button
+                id="tab-looks"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panel-looks"
+                tabindex="-1"
+              >
+                <span>03</span> Looks
+                <span class="tab-mark" aria-hidden="true"></span>
+              </button>
+            </div>
+            <p class="project-platform">
+              <span class="status-dot"></span> iOS app · In development
+            </p>
+          </div>
+          <div class="notebook-panels">
+            <div
+              class="feature-panel"
+              id="panel-wardrobe"
+              role="tabpanel"
+              aria-labelledby="tab-wardrobe"
+              tabindex="0"
+            >
+              <div class="feature-visual">
+                <img
+                  src="./assets/ootd/olive-chore-jacket.jpg"
+                  width="720"
+                  height="900"
+                  alt="Olive chore jacket from OOTD’s garment collection"
+                  loading="lazy"
+                /><span class="feature-note">START WITH<br />WHAT’S YOURS.</span
+                ><span class="feature-index" aria-hidden="true">01</span>
+              </div>
+              <div class="feature-copy">
+                <h3>A place for every piece.</h3>
+                <p>
+                  Add clothes from a photo or enter them yourself. Review the
+                  details, then search your wardrobe when you need a piece.
+                </p>
+                <span class="feature-flow"
+                  >PHOTO <span aria-hidden="true">→</span> REVIEW
+                  <span aria-hidden="true">→</span> WARDROBE</span
+                >
+              </div>
+            </div>
+            <div
+              class="feature-panel"
+              id="panel-today"
+              role="tabpanel"
+              aria-labelledby="tab-today"
+              tabindex="0"
+              hidden
+            >
+              <div class="feature-visual today-visual outfit-visual">
+                <div class="outfit-label">
+                  <span>ONE POSSIBLE COMBINATION</span><span>02</span>
+                </div>
+                <div class="outfit-assembly">
+                  <figure class="starting-piece">
+                    <img
+                      src="./assets/ootd/olive-chore-jacket.jpg"
+                      width="720"
+                      height="900"
+                      alt="Olive chore jacket"
+                      loading="lazy"
+                    />
+                    <figcaption>01 / THE STARTING PIECE</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      src="./assets/ootd/cream-tee.jpg"
+                      width="720"
+                      height="900"
+                      alt="Cream tee"
+                      loading="lazy"
+                    />
+                    <figcaption>02 / THE BASE</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      src="./assets/ootd/straight-jeans.jpg"
+                      width="720"
+                      height="900"
+                      alt="Straight jeans"
+                      loading="lazy"
+                    />
+                    <figcaption>03 / THE BOTTOM</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      src="./assets/ootd/white-sneakers.jpg"
+                      width="720"
+                      height="900"
+                      alt="White sneakers"
+                      loading="lazy"
+                    />
+                    <figcaption>04 / THE SHOES</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="feature-copy">
+                <h3>Begin with a favourite.</h3>
+                <p>
+                  Lock in a piece you want to wear, then build a look from your
+                  own wardrobe. Pick it for today, or save it for later.
+                </p>
+                <span class="feature-flow"
+                  >PICK A PIECE <span aria-hidden="true">→</span> COMPOSE
+                  <span aria-hidden="true">→</span> WEAR</span
+                >
+              </div>
+            </div>
+            <div
+              class="feature-panel"
+              id="panel-looks"
+              role="tabpanel"
+              aria-labelledby="tab-looks"
+              tabindex="0"
+              hidden
+            >
+              <div class="feature-visual looks-visual outfit-visual">
+                <div class="outfit-label saved-look-label">
+                  <span
+                    ><small>FROM OOTD’S EXAMPLE WARDROBE</small
+                    ><strong>Indigo travel layers</strong></span
+                  ><span aria-hidden="true">03</span>
+                </div>
+                <div class="outfit-assembly">
+                  <figure>
+                    <img
+                      src="./assets/ootd/indigo-yukata-jacket.jpg"
+                      width="720"
+                      height="900"
+                      alt="Indigo yukata jacket"
+                      loading="lazy"
+                    />
+                    <figcaption>YUKATA JACKET</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      src="./assets/ootd/white-guayabera.jpg"
+                      width="720"
+                      height="900"
+                      alt="White linen guayabera"
+                      loading="lazy"
+                    />
+                    <figcaption>LINEN GUAYABERA</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      src="./assets/ootd/straight-jeans.jpg"
+                      width="720"
+                      height="900"
+                      alt="Straight jeans"
+                      loading="lazy"
+                    />
+                    <figcaption>STRAIGHT JEANS</figcaption>
+                  </figure>
+                  <figure>
+                    <img
+                      src="./assets/ootd/white-sneakers.jpg"
+                      width="720"
+                      height="900"
+                      alt="White sneakers"
+                      loading="lazy"
+                    />
+                    <figcaption>WHITE SNEAKERS</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="feature-copy">
+                <h3>Keep a good combination.</h3>
+                <p>
+                  Save a look for another day. “Indigo travel layers” is one of
+                  the saved combinations in OOTD’s example wardrobe.
+                </p>
+                <span class="feature-flow"
+                  >COMBINE <span aria-hidden="true">→</span> SAVE
+                  <span aria-hidden="true">→</span> REVISIT</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <a
+          class="text-link project-enquiry"
+          href="mailto:dietcode@sike.dev?subject=OOTD%20enquiry"
+          >Ask about OOTD <span aria-hidden="true">↗</span></a
+        >
+        <aside class="case-note" aria-labelledby="case-note-title">
+          <div>
+            <span>ONE PRODUCT DECISION</span>
+            <h3 id="case-note-title">Real pieces first.</h3>
+          </div>
+          <p>
+            OOTD builds outfit options from available wardrobe items before an
+            optional AI ranking step. If ranking is unavailable, those locally
+            built options remain ready to wear.
+          </p>
+        </aside>
+      </section>
+      <section class="studio edge" id="studio" aria-labelledby="studio-title">
+        <div class="section-meta">
+          <span>02 / THE PEOPLE BEHIND THE LABEL</span><span>THREE OF US.</span>
+        </div>
+        <div class="studio-heading">
+          <h2 id="studio-title">Small crew.<br />Full of ideas.</h2>
+          <p>
+            We shape product ideas, design their interfaces, and build the
+            software behind them. OOTD is what we’re working on now.
+          </p>
+        </div>
+        <ul class="team-list" aria-label="Diet Code members">
+          <li>
+            <span class="member-number">01</span>
+            <h3>Gowrish</h3>
+            <span class="member-handle">aka <strong>gorix</strong></span
+            ><span class="member-mark" aria-hidden="true">✳</span>
+          </li>
+          <li>
+            <span class="member-number">02</span>
+            <h3>Jeswin</h3>
+            <span class="member-handle">aka <strong>jes</strong></span
+            ><span class="member-mark" aria-hidden="true">✳</span>
+          </li>
+          <li>
+            <span class="member-number">03</span>
+            <h3>Sabi</h3>
+            <span class="member-handle">aka <strong>sero</strong></span
+            ><span class="member-mark" aria-hidden="true">✳</span>
+          </li>
+        </ul>
+        <div class="studio-footer">
+          <span>DIFFERENT HEADS. SHARED CURIOSITY.</span
+          ><a class="text-link" href="#contact"
+            >Put us to work <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <section
+        class="contact edge"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="section-meta">
+          <span>03 / OPEN A CONVERSATION</span><span>NO FORM. JUST US.</span>
+        </div>
+        <h2 id="contact-title">Got an idea?<br /><em>Let’s uncap it.</em></h2>
+        <div class="contact-bottom">
+          <p>Tell us what you’re thinking.<br />We’ll take it from there.</p>
+          <a class="contact-email" href="mailto:dietcode@sike.dev"
+            >dietcode@sike.dev <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer edge">
+      <a class="brand" href="#top"
+        >Diet Code<span class="brand-dot" aria-hidden="true">✳</span></a
+      >
+      <p>Independently made.</p>
+      <a href="#top">Back to top <span aria-hidden="true">↑</span></a
+      ><span>© <span data-year>2026</span> Diet Code</span>
+    </footer>
+    <script type="module" src="./src/main.js"></script>
+  </body>
 </html>

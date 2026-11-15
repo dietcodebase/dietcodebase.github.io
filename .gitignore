@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.superpowers/
+.taste-skill/
+tsconfig.tsbuildinfo
+screenshots/

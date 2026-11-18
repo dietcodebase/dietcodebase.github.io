@@ -13,3 +13,17 @@
 ## OOTD product-decision copy
 
 The “Real pieces first” case note describes existing code at source HEAD `f37cde6911cfba5c25fa4373f2d1c8dbbcc794c4`: `WardrobeAI/OutfitRecommendations.swift:197–260` filters active owned items and generates bounded candidates; `WardrobeAI/ContentView.swift:454–478` displays local suggestions before optional ranking and retains them when ranking fails; `WardrobeAI/StylistChat.swift:185–220` accepts only existing candidate IDs and preserves locally formed explanations. No performance, blanket privacy/offline, or native-runtime verification claim is made.
+
+## User-reference bottle revision,15 November
+
+The user supplied the pixel-rendered bottle reference. `bottle-user-reference.png` is preserved verbatim. Its lossless WebP derivative is embedded in `public/assets/bottle/reference-master.svg`; a traced SVG clipping path isolates the bottle without regenerating its lettering or glass. Cap and body reuse the same URL with registered CSS crops, avoiding duplicate transfers. The silhouette mask is manually traced; no numerical99% fidelity claim is made. A generated bottle variant was rejected because it changed the source.
+
+`torn-edge-v2.png` is an imagegen-created paper alpha asset, preserved here and encoded as WebP for the real fibrous section edges. Production motion is SVG/code-native liquid geometry, not a generated animation.
+
+## Clean paper-rim bottle edit
+
+The latest user correction requires neutral glass with no blue sky and a complete rounded cutout. `bottle-clean-rim-v3.png` and `bottle-open-rim-v3.png` preserve imagegen edits of the user reference. Their WebP derivatives are used for closed cap/open body; same1536px registration. The white paper outline is baked into the edited art. These supersede the traced original-pixel SVG at runtime. The edits change pixels to neutralize the blue; they are not represented as an exact original-pixel extraction. The surrounding transparency was inspected in-browser.
+
+`milk-surface-v3.png` is a generated macro milk material, encoded as `public/assets/liquid/milk-surface.webp`. It is mapped inside the code-shaped stream, with a restrained cross-section shading overlay. The stream path, gravity/taper, advancing front, pool-volume integration, waves, splash particles and bubbles remain code-driven and scroll-reversible. It is a designed visual approximation, not footage or a certified fluid solver.
+
+Performance pass: the macro milk material is resized to384px wide and encoded as WebP for its narrow on-screen stream. This is a format/size optimization of the same source image. The enhanced scene omits the live bottle cast-shadow filter because it caused frame stalls; the baked paper rim is unchanged.

@@ -4,3 +4,7 @@ dist/
 .taste-skill/
 tsconfig.tsbuildinfo
 screenshots/
+.impeccable/
+/docs/assets/originals/
+/docs/reviews/performance/
+/docs/reviews/pour-revision/

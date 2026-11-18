@@ -131,14 +131,16 @@ html {
   bottom: 4px;
   height: 2px;
   background: currentColor;
-  width: 0;
-  transition: width 0.18s;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.18s;
 }
 .site-header nav a {
   position: relative;
 }
 .site-header nav a:hover:after {
-  width: 100%;
+  transform: scaleX(1);
 }
 .site-header nav span {
   font-size: 10px;
@@ -2557,3 +2559,33 @@ a {
     max-width: none;
   }
 }
+
+/* Reference cutout, deferred project and optimized pour. */
+.bottle-cap {clip-path:inset(0 0 89.8%);}
+.bottle-body {clip-path:none;}
+.masthead {align-items:baseline;font-size:16.3vw;gap:.25em;letter-spacing:-.045em;}
+.masthead > span {display:block;}
+.masthead > span:first-child {font-kerning:normal;}
+.project-disclosure {background:var(--cream);padding-top:24px;padding-bottom:32px;}
+.project-disclosure > summary {list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:72px;font-family:var(--display);font-size:clamp(24px,3vw,42px);border-block:1.5px solid;cursor:pointer;}
+.project-disclosure > summary::-webkit-details-marker {display:none;}
+.project-disclosure[open] > summary span {transform:rotate(45deg);}
+.project-disclosure .project-details {padding-inline:0;}
+.pop-control {display:flex;align-items:center;justify-content:space-between;}
+.liquid-transition {position:absolute;inset:0;width:100%;height:100%;z-index:7;pointer-events:none;overflow:visible;fill:var(--cream);contain:layout paint;}
+.enhanced .tear-scene {height:240svh;}
+.red-paper {mask:none;background:transparent url('/assets/paper/red-paper.webp') center/100% 100% no-repeat;}
+.red-paper:after {display:none;}
+.studio:after {mask-image:url('/assets/paper/torn-edge-v2.webp');mask-size:100% 100%;height:80px;bottom:-30px;mask-position:center;transform:rotate(180deg);}
+.contact {padding-bottom:140px;}
+.contact:after {content:"";position:absolute;bottom:-1px;left:0;right:0;height:110px;background:transparent url('/assets/paper/torn-edge-v2.webp') center/100% 100% no-repeat;pointer-events:none;}
+@media(max-width:560px){.masthead{font-size:26.5vw;gap:.025em;}.red-paper{background-size:170% 100%;background-position:45% center;}}
+.enhanced .hero {will-change:clip-path;contain:paint;}
+.enhanced .bottle-art {filter:none!important;}
+/* An opaque fill shows the project title first; supporting content follows. */
+.enhanced .scene-stage {background:var(--cream);}
+.enhanced .work-intro {z-index:8;background:transparent;pointer-events:none;will-change:clip-path;}
+.enhanced .work-intro [data-work-support] {opacity:var(--work-details,0);transform:translateY(calc(12px * (1 - var(--work-details,0))));pointer-events:none;}
+.enhanced .work-intro [data-work-support] * {pointer-events:none;}
+.enhanced .work-intro[data-support-ready="true"] .work-intro-foot a {pointer-events:auto;}
+.enhanced #work-title {will-change:transform;pointer-events:auto;}

@@ -1,4 +1,4 @@
-import { transitionBottle, steppedProgress, dragPose } from "./bottle-state.js";
+import { transitionBottle, steppedProgress, dragPose, scrollCapPose } from "./bottle-state.js";
 export function mountBottle(root, { reducedMotion = false } = {}) {
   const cap = root.querySelector("[data-cap]"),
     art = root.querySelector("[data-bottle-art]"),
@@ -13,6 +13,11 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
   let state = ["popping", "resetting", "open"].includes(root.dataset.capState)
       ? "open"
       : "closed",
+    scrollOwned = false,
+    lastScrollProgress = null,
+    lastAnnouncedState = null,
+    scrollRest = {x:0,y:0,r:0},
+    scrollRestState = "closed",
     raf = 0,
     job = null,
     entrance = reducedMotion || !firstMount ? null : performance.now(),
@@ -24,7 +29,10 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
   const openPose = { x: -50, y: -70, r: -55 };
   let pose = { x: 0, y: 0, r: 0 };
   function setState(next) {
+    if(lastAnnouncedState===next)return;
+    lastAnnouncedState=next;
     state = next;
+    cap.style.opacity = next === "open" ? "0" : "1";
     root.dataset.capState = state;
     for (const el of triggers) {
       el.setAttribute(
@@ -46,7 +54,7 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
     cap.style.transform = `translate(${p.x}px,${p.y}px) rotate(${p.r}deg)`;
   }
   function schedule() {
-    if (!raf && !document.hidden) raf = requestAnimationFrame(tick);
+    if (!scrollOwned && !raf && !document.hidden) raf = requestAnimationFrame(tick);
   }
   function launch(next) {
     setState(next);
@@ -58,7 +66,7 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
     schedule();
   }
   function activate() {
-    if (performance.now() < suppressUntil) return;
+    if (scrollOwned || performance.now() < suppressUntil) return;
     const next = transitionBottle(state, "activate");
     if (next === state) return;
     if (reducedMotion) {
@@ -92,6 +100,7 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
         }
         drawCap(p);
         fizz.style.opacity = t >= 0.2 && t < 0.5 ? "1" : "0";
+        cap.style.opacity = String(1-Math.max(0,(t-.65)/.35));
       }
       if (t === 1) {
         const next = transitionBottle(state, "animationEnd");
@@ -130,7 +139,7 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
     }
     // Local canvas axes rotate with the bottle, and never touch the scroll-owned layer.
     local.style.transform = `translate(${dx}px,${dy}px) rotate(${rot}deg)`;
-    art.style.filter = `drop-shadow(${hover ? 8 : 6}px ${hover ? 13 : 10}px 0px #2b171b38)`;
+    art.style.filter = `drop-shadow(${hover ? 8 : 6}px ${hover ? 13 : 10}px 2px #0e0e1026)`;
     if (active) schedule();
   }
   for (const t of triggers) {
@@ -142,7 +151,7 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
   hit.addEventListener(
     "pointerenter",
     (e) => {
-      if (e.pointerType === "mouse") {
+      if (!scrollOwned && e.pointerType === "mouse") {
         hover = true;
         schedule();
       }
@@ -161,6 +170,7 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
     "pointerdown",
     (e) => {
       if (
+        scrollOwned ||
         reducedMotion ||
         e.pointerType !== "mouse" ||
         e.button !== 0 ||
@@ -176,7 +186,7 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
   hit.addEventListener(
     "pointermove",
     (e) => {
-      if (drag && drag.id === e.pointerId) {
+      if (!scrollOwned && drag && drag.id === e.pointerId) {
         drag.delta = e.clientX - drag.start;
         schedule();
       }
@@ -227,6 +237,25 @@ export function mountBottle(root, { reducedMotion = false } = {}) {
   schedule();
   return {
     replay: activate,
+    setScrollProgress(progress, owned) {
+      if (!owned && !scrollOwned) return;
+      if(owned===scrollOwned&&progress===lastScrollProgress)return;
+      lastScrollProgress=progress;
+      if (owned && !scrollOwned) { scrollRest={...pose}; scrollRestState=state === "closed" ? "closed" : "open"; }
+      if(owned&&!scrollOwned){
+        hover=false;
+        const previousDrag=drag;drag=null;
+        if(previousDrag&&hit.hasPointerCapture(previousDrag.id))hit.releasePointerCapture(previousDrag.id);
+      }
+      scrollOwned = owned;
+      job = null; entrance = null; settle = null;
+      cancelAnimationFrame(raf); raf = 0;
+      local.style.transform = "none";
+      fizz.style.opacity = "0";
+      drawCap(scrollCapPose(progress,scrollRest));
+      setState(progress > 0 ? "open" : scrollRestState);
+      cap.style.opacity = scrollRestState === "open" ? "0" : String(1-Math.max(0,Math.min(1,(progress-.55)/.4)));
+    },
     reset() {
       job = null;
       fizz.style.opacity = "0";

@@ -21,3 +21,8 @@ export function dragPose(delta) {
   const x = Math.max(-36, Math.min(36, delta));
   return { x, rotation: x / 6 };
 }
+
+export function scrollCapPose(progress,rest={x:0,y:0,r:0}) {
+ const t=Math.max(0,Math.min(1,progress));
+ return {x:rest.x+(-65-rest.x)*t,y:rest.y+(-180-rest.y)*t,r:rest.r+(-120-rest.r)*t};
+}

@@ -30,3 +30,9 @@ test("drag is bounded and cancellation can return to neutral", () => {
   assert.deepEqual(dragPose(-1000), { x: -36, rotation: -6 });
   assert.deepEqual(dragPose(0), { x: 0, rotation: 0 });
 });
+test('scroll cap continues from a manually opened pose without reseating',async()=>{
+ const {scrollCapPose}=await import('../src/motion/bottle-state.js');
+ const manual={x:-50,y:-70,r:-55};assert.deepEqual(scrollCapPose(0,manual),manual);
+ assert.ok(scrollCapPose(.1,manual).y<=manual.y);
+ assert.deepEqual(scrollCapPose(0,manual),manual);
+});

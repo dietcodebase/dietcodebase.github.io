@@ -1,7 +1,6 @@
-import { sceneProgress, tearPoseAt } from "./tear-state.js";
-export function mountTearScene(root, { reducedMotion = false } = {}) {
-  const paperEdge = new URL("./assets/paper/cream-paper.webp", document.baseURI)
-    .href;
+import { mountPour } from "./pour.js";
+import { sceneProgress } from "./tear-state.js";
+export function mountTearScene(root, { reducedMotion = false, bottleController } = {}) {
   const hero = root.querySelector("[data-hero-pane]"),
     work = root.querySelector("[data-work-pane]"),
     bottle = root.querySelector("[data-bottle-scroll]"),
@@ -9,69 +8,73 @@ export function mountTearScene(root, { reducedMotion = false } = {}) {
     heroActions = hero.querySelector(".hero-bottom"),
     bottleHit = hero.querySelector(".bottle-hit"),
     abort = new AbortController();
+  const pour = reducedMotion ? null : mountPour(hero, bottle, bottleController);
+  const support=[work.querySelector('.section-meta'),work.querySelector('.work-heading > p'),work.querySelector('.wardrobe-plate'),work.querySelector('.work-intro-foot')];
+  support.forEach(el=>el.setAttribute('data-work-support',''));
+  let movingFocus=false;
   let raf = 0,
     start = 0,
     travel = 0,
     wasWork = false,
-    wantsHeroFocus = false;
+    wantsHeroFocus = false,
+    metrics,previousProgress=null,covered=null,needsMeasure=false,destroyed=false;
   function geometry() {
     start = root.getBoundingClientRect().top + scrollY;
     travel =
       root.offsetHeight - root.querySelector(".scene-stage").offsetHeight;
+    const priorTitle=heading.style.transform;heading.style.transform='none';
+    const titleBox=heading.getBoundingClientRect(),workBox=work.getBoundingClientRect();
+    const titleShift=hero.offsetHeight*.52-titleBox.height/2-(titleBox.top-workBox.top);
+    heading.style.transform=priorTitle;
+    metrics={titleShift,height:hero.offsetHeight,header:hero.querySelector('.site-header').offsetHeight,
+      actionsBottom:heroActions.offsetTop+heroActions.offsetHeight,hitBottom:bottleHit.offsetTop+bottleHit.offsetHeight};
+    pour.measure();previousProgress=null;
   }
   function render() {
     raf = 0;
-    const p = sceneProgress(scrollY, start, travel),
-      pose = tearPoseAt(p);
+    if(destroyed)return;
+    if(needsMeasure){needsMeasure=false;geometry();}
+    const p = sceneProgress(scrollY, start, travel);
+    if(p===previousProgress&&!wantsHeroFocus)return;
+    previousProgress=p;
     root.dataset.progress = p.toFixed(4);
-    root.dataset.paperStep = pose.paperStep;
-    const paperEdgePx = (pose.edge / 100) * hero.offsetHeight;
-    hero.style.maskRepeat = "no-repeat";
-    hero.style.maskComposite = "add";
-    if (p === 0) {
-      hero.style.maskImage = "none";
-      hero.style.maskSize = "";
-      hero.style.maskPosition = "";
-    } else if (p === 1) {
-      hero.style.maskImage = "linear-gradient(transparent,transparent)";
-      hero.style.maskSize = "100% 100%";
-      hero.style.maskPosition = "0 0";
-    } else {
-      hero.style.maskImage = `linear-gradient(#000,#000), url("${paperEdge}")`;
-      hero.style.maskSize = `100% ${Math.max(0, paperEdgePx - 30)}px, calc(100% + 80px) 160px`;
-      hero.style.maskPosition = `left top, center ${paperEdgePx - 137}px`;
-    }
-    bottle.style.visibility = pose.bottleVisible ? "visible" : "hidden";
-    bottle.style.transform = `translateY(${pose.bottleY}px) rotate(${pose.bottleRotation}deg)`;
-    work.style.transform = `translateY(${pose.workY}%)`;
-    const revealed = pose.paperStep >= 10;
-    const edgePx = ((pose.edge - 0.8) / 100) * hero.offsetHeight;
+    root.dataset.paperStep = Math.floor(p*11);
+    const liquid = pour.render(p);
+    work.style.transform = "none";
+    work.style.clipPath=`inset(${liquid.contentInset}px 0 0)`;
+    work.style.setProperty('--work-details',liquid.details);
+    heading.style.transform=`translateY(${metrics.titleShift*(1-liquid.title)}px)`;
+    const ready=liquid.details===1;
+    if(work.dataset.supportReady!==String(ready))work.dataset.supportReady=String(ready);
+    const revealed = liquid.fill >= 1 - metrics.header / metrics.height;
+    const edgePx = p < .18 ? metrics.height : 0;
     const actionsCovered =
-      heroActions.offsetTop + heroActions.offsetHeight > edgePx;
+      metrics.actionsBottom > edgePx;
     if (
       actionsCovered &&
       heroActions.contains(document.activeElement) &&
       !revealed
     )
       hero.querySelector(".brand").focus({ preventScroll: true });
-    heroActions.inert = actionsCovered;
-    const hitCovered = bottleHit.offsetTop + bottleHit.offsetHeight > edgePx;
+    if(covered!==actionsCovered){heroActions.inert = actionsCovered;covered=actionsCovered;}
+    const hitCovered = metrics.hitBottom > edgePx;
     if (hitCovered && document.activeElement === bottleHit && !revealed)
       hero.querySelector(".brand").focus({ preventScroll: true });
-    bottleHit.tabIndex = hitCovered ? -1 : 0;
+    if(bottleHit.tabIndex!==(hitCovered?-1:0))bottleHit.tabIndex=hitCovered?-1:0;
     if (wantsHeroFocus && p < 0.1) {
       wantsHeroFocus = false;
       hero.querySelector(".brand").focus({ preventScroll: true });
     }
-    hero.inert = revealed;
-    hero.setAttribute("aria-hidden", String(revealed));
+    if(hero.inert!==revealed)hero.inert = revealed;
+    if(hero.getAttribute("aria-hidden")!==String(revealed))hero.setAttribute("aria-hidden", String(revealed));
     if (revealed !== wasWork) {
       if (!revealed && work.contains(document.activeElement)) {
         const target = hero.querySelector(".brand");
         target.focus({ preventScroll: true });
       }
-      if (revealed && hero.contains(document.activeElement))
-        heading.focus({ preventScroll: true });
+      if (revealed && hero.contains(document.activeElement)){
+        movingFocus=true;heading.focus({ preventScroll: true });movingFocus=false;
+      }
       wasWork = revealed;
     }
   }
@@ -100,8 +103,8 @@ export function mountTearScene(root, { reducedMotion = false } = {}) {
     window.addEventListener(
       "resize",
       () => {
-        geometry();
-        render();
+        needsMeasure=true;
+        queue();
       },
       { signal: abort.signal },
     );
@@ -111,7 +114,7 @@ export function mountTearScene(root, { reducedMotion = false } = {}) {
   work.addEventListener(
     "focusin",
     () => {
-      if (!reducedMotion && !wasWork) {
+      if (!reducedMotion && !movingFocus && sceneProgress(scrollY,start,travel)<1) {
         window.scrollTo({ top: start + travel, behavior: "instant" });
         render();
       }
@@ -145,6 +148,7 @@ export function mountTearScene(root, { reducedMotion = false } = {}) {
       { signal: abort.signal },
     );
   function restoreHash() {
+    if(destroyed)return;
     if (location.hash === "#work") openWork({ focus: false });
     else if (["#top", "#hero-title", "#main", ""].includes(location.hash)) {
       window.scrollTo({
@@ -158,10 +162,13 @@ export function mountTearScene(root, { reducedMotion = false } = {}) {
   window.addEventListener("hashchange", onHash, { signal: abort.signal });
   window.addEventListener("popstate", onHash, { signal: abort.signal });
   if (location.hash) requestAnimationFrame(restoreHash);
+  document.fonts.ready.then(()=>{if(!destroyed&&!reducedMotion){needsMeasure=true;queue();}});
   return {
     openWork,
     destroy() {
+      destroyed=true;
       abort.abort();
+      pour?.destroy();
       cancelAnimationFrame(raf);
       document.documentElement.classList.remove("enhanced");
       hero.inert = false;
@@ -181,6 +188,11 @@ export function mountTearScene(root, { reducedMotion = false } = {}) {
         hero.style[property] = "";
       bottle.style.visibility = "";
       work.style.transform = "";
+      work.style.clipPath = "";
+      work.style.removeProperty('--work-details');
+      delete work.dataset.supportReady;
+      heading.style.transform='';
+      support.forEach(el=>el.removeAttribute('data-work-support'));
       bottle.style.transform = "";
     },
   };

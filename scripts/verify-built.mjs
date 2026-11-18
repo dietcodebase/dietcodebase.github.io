@@ -74,6 +74,7 @@ try {
       ),
     ),
   );
+  await page.locator("details").evaluate(e => e.open = true);
   for (const tab of await page.locator('[role="tab"]').all()) {
     await tab.click();
     await page

@@ -1,6 +1,6 @@
 # Diet Code — Tear Open
 
-A static studio website with a photographic halftone bottle, an interactive cap, and a native, reversible torn-paper transition into OOTD.
+A static studio website with a printed bottle cutout, a scroll-opened cap and a native, reversible cream-liquid pour into OOTD.
 
 ## Run locally
 
@@ -21,7 +21,7 @@ node scripts/verify-built.mjs
 node scripts/verify-preview.mjs
 ```
 
-`verify` starts and closes its own Vite server and headless Chromium. It runs 122 acceptance checks across six viewports. It checks desktop/mobile, cap replay, pointer cancellation, native touch scrolling, equal forward/reverse paper poses, keyboard focus, reduced motion, no-JS flow, asset failure and visible team names. It saves screenshots, motion video and a JSON report to `screenshots/tear-open/`. The preview verifier adds 101 checks across five sizes for garment selection, variation, focus, saving, reload, reset and unavailable storage. Pure state helpers have 13 tests.
+`verify` checks the revised pour at desktop/tablet/phone sizes, exact reversed poses, project shortcuts, collapsed story disclosure, product interaction and reduced motion. The previous tear verifier is retained as historical baseline coverage and is not the active command. Preview tests open the disclosure before exercising the garment study.
 
 ## Content and assets
 

@@ -86,17 +86,17 @@
                       ><span class="bottle-art" data-bottle-art>
                         <img
                           class="bottle-body"
-                          src="./assets/bottle/body.webp"
+                          src="./assets/bottle/open-rim-v3.webp"
                           width="1024"
                           height="1536"
-                          alt="Green halftone glass bottle with a cream diet code label"
+                          alt="Green Diet Code bottle with the original white label"
                           fetchpriority="high"
                           draggable="false"
                           data-bottle-image
                         />
                         <img
                           class="bottle-cap"
-                          src="./assets/bottle/master.webp"
+                          src="./assets/bottle/clean-rim-v3.webp"
                           width="1024"
                           height="1536"
                           alt=""
@@ -118,23 +118,11 @@
                 <p>We design and build digital products.</p>
               </div>
               <div class="hero-actions">
-                <button
-                  class="pop-control"
-                  type="button"
-                  data-cap-trigger
-                  hidden
-                >
-                  Pop the cap <span aria-hidden="true">↗</span></button
+                <a class="pop-control" href="#work" data-work-link>Latest project <span aria-hidden="true">↘</span></a
                 ><a class="button button-dark" href="#work" data-work-link
                   >View OOTD <span aria-hidden="true">↗</span></a
                 >
               </div>
-            </div>
-            <div class="hero-foot edge">
-              <span>OOTD / iOS WARDROBE APP</span
-              ><span
-                >Scroll to tear open <span aria-hidden="true">↓</span></span
-              >
             </div>
           </section>
           <section
@@ -199,14 +187,16 @@
                 An iOS wardrobe app for planning looks<br />from the clothes you
                 already own.
               </p>
-              <a class="text-link" href="#ootd-details"
+              <a class="text-link" href="#project-story"
                 >Inside the project <span aria-hidden="true">↓</span></a
               >
             </div>
           </section>
         </div>
       </div>
-      <section
+      <details class="project-disclosure edge" id="project-story">
+        <summary>Explore OOTD <span aria-hidden="true">＋</span></summary>
+        <section
         class="project-details edge"
         id="ootd-details"
         aria-labelledby="details-title"
@@ -446,6 +436,7 @@
           </p>
         </aside>
       </section>
+      </details>
       <section class="studio edge" id="studio" aria-labelledby="studio-title">
         <div class="section-meta">
           <span>02 / THE PEOPLE BEHIND THE LABEL</span><span>THREE OF US.</span>

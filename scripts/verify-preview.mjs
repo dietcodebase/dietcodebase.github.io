@@ -35,6 +35,7 @@ try {
       page = await context.newPage();
     page.on("pageerror", (e) => result.errors.push(e.message));
     await page.goto(url);
+    await page.locator("details").evaluate(e => e.open = true);
     await page.evaluate(() => {
       localStorage.setItem("dietcode.preview-test-sentinel", "keep");
     });
@@ -125,6 +126,7 @@ try {
     await imageReady(page, "#panel-looks");
     await page.screenshot({ path: `${out}/${w}-kept.png` });
     await page.reload();
+    await page.locator("details").evaluate(e => e.open = true);
     await page.locator("#tab-looks").click();
     check(
       (await page
@@ -223,6 +225,7 @@ try {
   const page = await denied.newPage();
   page.on("pageerror", (e) => result.errors.push(e.message));
   await page.goto(url);
+    await page.locator("details").evaluate(e => e.open = true);
   await page
     .locator('[data-preview-action="start"][data-piece="cream"]')
     .click();
@@ -256,6 +259,7 @@ try {
     }),
     p = await plain.newPage();
   await p.goto(url);
+  await p.locator("details summary").click();
   check(
     (await p.locator("[data-preview-action]").count()) === 0,
     "no-JS fallback has no dummy preview controls",

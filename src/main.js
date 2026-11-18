@@ -34,6 +34,7 @@ function enhance() {
   compactFlow = innerHeight < 650;
   tear = mountTearScene(document.querySelector("[data-tear-scene]"), {
     reducedMotion: motion.matches || compactFlow,
+    bottleController: bottle,
   });
 }
 function failed() {
@@ -42,7 +43,7 @@ function failed() {
   for (const el of document.querySelectorAll("[data-cap-trigger]"))
     el.hidden = true;
 }
-const paperImages = ["red-paper", "cream-paper"].map((name) => {
+const paperImages = ["red-paper", "cream-paper", "torn-edge-v2"].map((name) => {
   const image = new Image();
   image.src = new URL(`./assets/paper/${name}.webp`, document.baseURI).href;
   return image;
@@ -68,6 +69,8 @@ Promise.all([
       } catch {
         /* An invalid fragment is not an asset failure. */
       }
+      const disclosure = destination?.closest("details");
+      if (disclosure) disclosure.open = true;
       destination?.scrollIntoView({ behavior: "instant" });
     }
   })
@@ -89,6 +92,7 @@ for (const link of document.querySelectorAll('a[href^="#"]')) {
     if (!target) return;
     e.preventDefault();
     history.pushState(null, "", hash);
+    if (target instanceof HTMLDetailsElement) target.open = true;
     const heading = target.querySelector("h2") || target;
     heading.tabIndex = -1;
     target.scrollIntoView({ behavior: motion.matches ? "instant" : "smooth" });
